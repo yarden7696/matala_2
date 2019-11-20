@@ -24,6 +24,7 @@ void interest ();
 void withdrawal();
 void closeAccount();
 void showOpenAccounts();
+void closeAccounts();
 
 /////////////////////////////////////////
 ///////////     Methods     ////////////
@@ -47,25 +48,25 @@ int main()
             openAccount();
             break;
         case 'b':
-            /* code */
+            checkBalance();
             break;  
         case 'd':
             Deposit();
             break; 
         case 'w':
-            /* code */
+            withdrawal();
             break; 
         case 'c':
             closeAccount();
             break; 
         case 'i':
-            /* code */
+            interest ();
             break; 
         case 'p':
             showOpenAccounts();
             break; 
         case 'e':
-            /* code */
+             closeAccounts();
             break;       
 
         default:
@@ -153,8 +154,8 @@ else // number account is exist
        scanf("%d", &withdraw);
        if( accounts[account1-901][balance]>= withdraw)
        {
-           accounts[account1-901][balance]=account[account1-901][balance]-withdraw;
-printf("The new balance after the withdrawal is: %d \n",account[account1-901][balance] );
+           accounts[account1-901][balance]=accounts[account1-901][balance]-withdraw;
+printf("The new balance after the withdrawal is: %d \n",accounts[account1-901][balance] );
     }
     else // there isnt enough money 
     {
@@ -252,4 +253,13 @@ printf("----------------|----------\n");
     }
     printf("\n");
     
+}
+
+void closeAccounts()
+{
+    int index;
+    for( index=0; index<50; index++)
+    {
+        accounts[index][status]= closed;
+    }
 }
