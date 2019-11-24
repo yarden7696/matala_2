@@ -8,7 +8,7 @@
 #define status 0 // status index
 
 
-int accounts[arr_size][2];
+static int accounts[arr_size][2];
 int acount_amount = 0;
 
 
@@ -30,56 +30,6 @@ void closeAccounts();
 ///////////     Methods     ////////////
 ///////////////////////////////////////
 
-int main()
-{
-    char operation = 'a';
-    printf("myBank Program\n");
-    printf("===============\n\n");
-
-    
-    while(operation != 'e')
-    {
-        printf("Transaction type: ");
-        scanf("%c", &operation);
-        printf("\n");
-        switch (operation)
-        {
-        case 'o':
-            openAccount();
-            break;
-        case 'b':
-            checkBalance();
-            break;  
-        case 'd':
-            Deposit();
-            break; 
-        case 'w':
-            withdrawal();
-            break; 
-        case 'c':
-            closeAccount();
-            break; 
-        case 'i':
-            interest ();
-            break; 
-        case 'p':
-            showOpenAccounts();
-            break; 
-        case 'e':
-             closeAccounts();
-            break;       
-
-        default:
-            //printf("wrong input!\n");
-            break;
-        }
-   while((getchar())!='\n');
-	}
-
-	return 1; 
-        }
-
-
 /*
 the function get first deposit and register to new account
 */
@@ -99,11 +49,14 @@ void openAccount()
     }
      if(isavilble){
         printf("initial deposit? ");
-        scanf("%d", &deposit_amount);
-        accounts[index][0] = opened;
-        accounts[index][1] = deposit_amount;
-        printf("\nnumber account: %d opened with income : %d\n" , index+901, accounts[index][1]);
+        if(scanf("%d", &deposit_amount))
+        {
+            accounts[index][0] = opened;
+            accounts[index][1] = deposit_amount;
+            printf("\nnumber account: %d opened with income : %d\n" , index+901, accounts[index][1]);
+   
         }
+    }
 }
 
 /*
@@ -261,5 +214,6 @@ void closeAccounts()
     for( index=0; index<50; index++)
     {
         accounts[index][status]= closed;
+        accounts[index][balance]= 0;
     }
 }
