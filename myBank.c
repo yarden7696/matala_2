@@ -8,7 +8,7 @@
 #define status 0 // status index
 
 
-static int accounts[arr_size][2];
+static double accounts[arr_size][2];
 int acount_amount = 0;
 
 
@@ -31,15 +31,26 @@ void closeAccounts();
 ///////////////////////////////////////
 
 /*
+get an varible to get input return true if the inpuit is leagle
+*/
+
+
+
+
+/*
 the function get first deposit and register to new account
 */
+
+
 void openAccount()
 {
     int index;
-    int deposit_amount;
+    double deposit_amount;
+    char c_exeption_indicator;
     
 	bool isavilble =false;
-    for (index = 0;index< 50; index++) {
+    for (index = 0;index< 50; index++) 
+    {
         if((accounts[index][0] == closed))
             {
                 isavilble = true;
@@ -47,15 +58,23 @@ void openAccount()
             }
           
     }
-     if(isavilble){
+    if(isavilble)
+    {
         printf("initial deposit? ");
-        if(scanf("%d", &deposit_amount))
+        
+        // int exeption =  scanf( "%d%c" , &deposit_amount,&c_exeption_indicator);
+
+        if(scanf("%lf" , &deposit_amount) != 1)
+        {
+            printf( "Wrong input \n");
+        }
+        else
         {
             accounts[index][0] = opened;
             accounts[index][1] = deposit_amount;
-            printf("\nnumber account: %d opened with income : %d\n" , index+901, accounts[index][1]);
-   
+            printf("\nnumber account: %d opened with income : %lf\n" , index+901, accounts[index][1]);
         }
+ 
     }
 }
 
@@ -64,114 +83,168 @@ The function get an account number and print the balance on the screen only if t
  number is open.
 */
 
-void checkBalance(){
-    int randomAcoount;
-    printf (" enter an account nunber between 901 to 950 : ");
-    scanf( "%d" , &randomAcoount);
-if ( (randomAcoount> 950 ) || (randomAcoount<901)) 
+void checkBalance()
 {
-    printf( " account number dosnt exist! \n");
-}
-else  // if the account number is proper
-{
-if ( accounts[randomAcoount-901][status] == opened) 
-{
-printf(" The balance in account nunmber : %d is : %d \n", randomAcoount, accounts[randomAcoount-901][balance]);
-}
-else // account nunber is close
-{
-printf( " This account number is close ! \n ");
-}
-}
+    double incomeAccount;
+    printf ("account number: ");
+
+    if(scanf("%lf" , &incomeAccount) != 1)
+    {
+        printf( "Wrong input \n");
+    }
+    else
+        {
+            if ((incomeAccount> 950 ) || (incomeAccount<901)) 
+                {
+                    printf("account number dosnt exist! \n");
+                }
+            else  // if the account number is proper
+                {
+                    if ( accounts[(int)incomeAccount-901][status] == opened) 
+                        {
+                            printf(" The balance in account nunmber : %lf is : %lf \n", incomeAccount, accounts[(int)incomeAccount-901][balance]);
+                        }
+                    else // account nunber is close
+                        {
+                            printf( " This account number is close ! \n ");
+                        }
+                }
+        }
 }
 
 /*
-The function get an account number and print the sum after the withdrawal
+The function get an account number and print the sum after the withdrawal 
 */
 void withdrawal()
 {
     int account1;
-    int withdraw;
+    double withdraw;
+
     
-    printf (" enter an account nunber: ");
-    scanf( "%d" , &account1);
-    if ( (account1> 950 ) || (account1<901)) 
-{
-    printf( " account number dosnt exist! \n");
-}   
-else // number account is exist 
-{
-    if( accounts[account1-901][status] == opened  )
+    printf ("Account nunber: ");
+    if(scanf("%d" , &account1) != 1) 
     {
-        printf("Amount?");
-       scanf("%d", &withdraw);
-       if( accounts[account1-901][balance]>= withdraw)
-       {
-           accounts[account1-901][balance]=accounts[account1-901][balance]-withdraw;
-printf("The new balance after the withdrawal is: %d \n",accounts[account1-901][balance] );
+        printf( "Wrong input \n");
     }
-    else // there isnt enough money 
+    else
     {
-    printf("There isnt enough money for withdrawal ! \n");
+        if ( (account1> 950 ) || (account1<901)) 
+        {
+            printf( " account number dosnt exist! \n");
+        }   
+        else // number account is exist 
+        {
+            if( accounts[account1-901][status] == opened  )
+            {
+                printf("Amount?");
+                if(scanf("%lf" , &withdraw) != 1) 
+                {
+                    printf( "Wrong input \n");
+                }
+                else 
+                {
+                    if( accounts[account1-901][balance]>= withdraw)
+                        {
+                            accounts[account1-901][balance]=accounts[account1-901][balance]-withdraw;
+                            printf("The new balance after the withdrawal is: %lf \n",accounts[account1-901][balance] );
+                        }
+                    else // there isnt enough money 
+                    {
+                        printf("There isnt enough money for withdrawal ! \n");
+                    }
+                }
+            }
+            else
+            {
+                printf(" This account number is close ! \n");
+            }
+        }   
     }
-}
-else
- {
-printf(" This account number is close ! \n");
-}
-}
 }
 
+/*
+The function add interest % to all open account.
+*/
 void interest ()
 {
     int index;
     int interest;
     double percent;
     printf("Interest rate ? ");
-    scanf("%d", &interest);
-    percent = interest/100.0;
-    for(index=0; index<50; index++ )
+    
+    if(scanf("%d" , &interest) != 1) 
     {
-        if(accounts[index][status]==opened)
+        printf( "Wrong input \n");
+    }
+    else
+    {
+        percent = (interest)/100.0;
+        for(index=0; index<50; index++ )
         {
+            if(accounts[index][status]==opened)
+            {
 
-         double d = accounts[index][balance]*percent;   
-            accounts[index][balance] += d; 
+                double d = accounts[index][balance]*percent;   
+                accounts[index][balance] += d; 
+            }
         }
     }
 }
+
 /*
 the function get account number amount of money and print the new balance
 */
 void Deposit( )
 {
     int account_num;
-    int deposit;
+    double deposit;
     printf("Account number: ");
-    scanf("%d",&account_num);
-    account_num = account_num-901;
-    if((account_num < 50 || account_num >=0 )&& accounts[account_num][status] == opened)
+
+    if(scanf("%d" , &account_num) != 1) 
     {
-        printf("Amount: ");
-        scanf("%d",&deposit);
-        accounts[account_num][balance] += deposit;
-        printf("now in account %d the balance is %d\n",account_num+901,accounts[account_num][balance]);
+        printf( "Wrong input \n");
     }
     else
     {
-        printf("Error: wrong account number or not opend!\n");
+        account_num = account_num-901;
+        if((account_num < 50 || account_num >=0 )&& (accounts[account_num][status] == opened))
+        {
+            printf("Amount: ");
+
+            
+            if(scanf("%lf" , &deposit) != 1) 
+            {
+                printf( "Wrong input \n");
+            }
+            else    
+            {
+                accounts[account_num][balance] += deposit;
+                printf("now in account %d the balance is %lf\n",account_num+901,accounts[account_num][balance]);
+            }
+        }
+        else
+        {
+            printf("Error:  account not exist or not opend yet!\n");
+        }
+        
     }
 }
 
 /*
-the function get account number and close it
+the function get account number and close it only if it was opend
 */
 void closeAccount()
 {
     int account_num;
-    int deposit;
+
     printf("Account number: ");
-    scanf("%d",&account_num);
+   
+     if(scanf("%d" , &account_num) != 1) 
+    {
+        printf( "Wrong input \n");
+    }
+     else 
+     {
     account_num = account_num-901;
     if((account_num < 50 || account_num >=0 )&& accounts[account_num][status] == opened)
     {
@@ -183,8 +256,8 @@ void closeAccount()
     {
         printf("Error: wrong account number or not opend!\n\n");
     }
+    }
 }
-
 /*
 the function display all the open accounts and their balance
 */
@@ -199,7 +272,7 @@ printf("----------------|----------\n");
     
         if(accounts[i][status]==opened)
         {
-            printf("%d\t\t|\t %d \n",i+901,accounts[i][balance]);
+            printf("%d\t\t|\t %lf \n",i+901,accounts[i][balance]);
             printf("----------------|----------\n");
         }
 

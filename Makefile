@@ -18,7 +18,7 @@ myBank.o: myBank.c myBank.h
 main.o: main.c myBank.h
 	$(CC) $(FLAG) -c main.c
 
-.PHONY: clean all
+.PHONY: clean all myBankd maind
 
 clean:
 	rm -f *.o *.a *.so progmains progmaind

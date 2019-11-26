@@ -8,35 +8,35 @@ int main()
     printf("===============\n\n");
 
     
-    while(operation != 'e')
+    while(operation != 'E')
     {
         printf("Transaction type: ");
         scanf("%c", &operation);
         printf("\n");
         switch (operation)
         {
-        case 'o':
+        case 'O':
             openAccount();
             break;
-        case 'b':
+        case 'B':
             checkBalance();
             break;  
-        case 'd':
+        case 'D':
             Deposit();
             break; 
-        case 'w':
+        case 'W':
             withdrawal();
             break; 
-        case 'c':
+        case 'C':
             closeAccount();
             break; 
-        case 'i':
+        case 'I':
             interest ();
             break; 
-        case 'p':
+        case 'P':
             showOpenAccounts();
             break; 
-        case 'e':
+        case 'E':
              closeAccounts();
             break;       
 
