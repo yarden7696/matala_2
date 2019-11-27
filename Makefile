@@ -4,7 +4,7 @@ OBJECTS_MAIN=main.o
 OBJECTS_LIB=myBank.o
 FLAGS= -Wall -g
 
-all:  myBankd maind
+all:  myBankd main
 
 maind: $(OBJECTS_MAIN)  
 	$(CC) $(FLAGS) -o main $(OBJECTS_MAIN) ./libmyBank.so
