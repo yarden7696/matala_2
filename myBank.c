@@ -1,14 +1,9 @@
 #include<stdio.h>
 #include<unistd.h>
 #include<stdbool.h>
-#define arr_size 50
-#define closed 0 //mean i can use the account for new costumer
-#define opened 1 //mean that i cant use the accounte 'cause alredy used!
-#define balance 1 // balance index
-#define status 0 // status index
+#include "myBank.h"
 
 
-static double accounts[arr_size][2];
 int acount_amount = 0;
 
 
