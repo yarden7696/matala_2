@@ -71,6 +71,11 @@ void openAccount()
         }
  
     }
+    else
+    {
+        printf("not enough place\n");
+    }
+    
 }
 
 /*

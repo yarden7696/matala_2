@@ -6,7 +6,7 @@ FLAGS= -Wall -g
 
 all:  myBankd main
 
-maind: $(OBJECTS_MAIN)  
+main: $(OBJECTS_MAIN)  
 	$(CC) $(FLAGS) -o main $(OBJECTS_MAIN) ./libmyBank.so
 
 myBankd: libmyBank.so
@@ -19,7 +19,6 @@ main.o: main.c myBank.h
 	$(CC) $(FLAG) -c main.c
 
 .PHONY: clean all myBankd main
-
 
 clean:
 	rm -f *.o *.so main
